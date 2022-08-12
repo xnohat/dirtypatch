@@ -23,6 +23,17 @@ var replace = `set $csp_default "default-src * 'unsafe-inline' 'unsafe-eval'";
 	fs.writeFileSync(file_need_patch, content_of_file); 
 } 
 //--------------------------------------- 
+//Patch: Disable rate limiting on nginx at /api 
+var file_need_patch = '/etc/nginx/nginx.conf'; 
+if (fs.existsSync(file_need_patch)) { 
+	console.log('Patching: ',file_need_patch); 
+var find = `limit_req zone=ratelimit burst=20 nodelay;`; 
+var replace = `#limit_req zone=ratelimit burst=20 nodelay;`; 
+	var content_of_file = fs.readFileSync(file_need_patch).toString();  
+	content_of_file = content_of_file.replace(find,replace); 
+	fs.writeFileSync(file_need_patch, content_of_file); 
+} 
+//--------------------------------------- 
 //Patch: Allow to run Automations or some restrict endpoint in Dev Env 
 var file_need_patch = '/app/dist/middleware/appInfo.js'; 
 if (fs.existsSync(file_need_patch)) { 
