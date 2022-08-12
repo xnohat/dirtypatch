@@ -27,8 +27,8 @@ var replace = `set $csp_default "default-src * 'unsafe-inline' 'unsafe-eval'";
 var file_need_patch = '/etc/nginx/nginx.conf'; 
 if (fs.existsSync(file_need_patch)) { 
 	console.log('Patching: ',file_need_patch); 
-var find = `limit_req zone=ratelimit burst=20 nodelay;`; 
-var replace = `#limit_req zone=ratelimit burst=20 nodelay;`; 
+var find = `limit_req zone=ratelimit burst=20 nodelay`; 
+var replace = `#limit_req zone=ratelimit burst=20 nodelay`; 
 	var content_of_file = fs.readFileSync(file_need_patch).toString();  
 	content_of_file = content_of_file.replace(find,replace); 
 	fs.writeFileSync(file_need_patch, content_of_file); 
