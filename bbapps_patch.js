@@ -43,18 +43,7 @@ var replace = `//ctx.throw(400, "Only apps in production support this endpoint")
 	var content_of_file = fs.readFileSync(file_need_patch).toString();  
 	content_of_file = content_of_file.replace(find,replace); 
 	fs.writeFileSync(file_need_patch, content_of_file); 
-} 
-//--------------------------------------- 
-//Patch: Cannot filter with column name have space 
-var file_need_patch = '/app/dist/api/controllers/row/internalSearch.js'; 
-if (fs.existsSync(file_need_patch)) { 
-    console.log('Patching: ',file_need_patch); 
-var find = `key = builder.preprocess(key.replace(/ /g, "_"), {`; 
-var replace = `key = builder.preprocess(key.replace(/ /, "_"), {`; 
-    var content_of_file = fs.readFileSync(file_need_patch).toString();  
-    content_of_file = content_of_file.replace(find,replace); 
-    fs.writeFileSync(file_need_patch, content_of_file); 
-} 
+}
 //--------------------------------------- 
 //Patch: Budibase export CSV not support UTF-8 
 var file_need_patch = '/app/dist/utilities/fileSystem/index.js'; 
