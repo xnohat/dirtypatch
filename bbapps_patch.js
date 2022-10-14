@@ -56,6 +56,17 @@ var replace = `//publicRouter.use(limiter);`;
 	fs.writeFileSync(file_need_patch, content_of_file); 
 }
 //--------------------------------------- 
+//Patch: Fix Automation JS execute timeout 
+var file_need_patch = '/app/dist/utilities/scriptRunner.js'; 
+if (fs.existsSync(file_need_patch)) { 
+	console.log('Patching: ',file_need_patch); 
+var find = `const JS_TIMEOUT_MS = 1000`; 
+var replace = `const JS_TIMEOUT_MS = 30000`; 
+	var content_of_file = fs.readFileSync(file_need_patch).toString();  
+	content_of_file = content_of_file.replace(find,replace); 
+	fs.writeFileSync(file_need_patch, content_of_file); 
+}
+//--------------------------------------- 
 //Patch: Budibase export CSV not support UTF-8 
 var file_need_patch = '/app/dist/utilities/fileSystem/index.js'; 
 if (fs.existsSync(file_need_patch)) { 
